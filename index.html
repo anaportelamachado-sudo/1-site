@@ -1,0 +1,115 @@
+# Projeto JavaScript – Missão de Exorcismo
+
+```javascript
+// ===============================
+// MISSÃO DE EXORCISMO
+// Projeto de Estudo JavaScript
+// ===============================
+
+const feiticeiro = {
+    nome: "Megumi Fushiguro",
+    nivel: 18,
+    energia: 250,
+    vida: 100
+};
+
+const maldicoes = [
+    { nome: "Maldição Grau 3", vida: 40, ataque: 8 },
+    { nome: "Maldição Grau 2", vida: 70, ataque: 15 },
+    { nome: "Maldição Grau 1", vida: 120, ataque: 20 },
+    { nome: "Maldição Especial", vida: 180, ataque: 30 }
+];
+
+console.log("====================================");
+console.log("MISSÃO DE EXORCISMO");
+console.log("====================================");
+
+console.log(`Feiticeiro: ${feiticeiro.nome}`);
+console.log(`Nível: ${feiticeiro.nivel}`);
+console.log(`Vida: ${feiticeiro.vida}`);
+console.log(`Energia: ${feiticeiro.energia}`);
+console.log("------------------------------------");
+
+function ataque() {
+    return Math.floor(Math.random() * 35) + 20;
+}
+
+for (let i = 0; i < maldicoes.length; i++) {
+
+    let inimigo = maldicoes[i];
+
+    console.log(`Uma ${inimigo.nome} apareceu!`);
+
+    while (inimigo.vida > 0 && feiticeiro.vida > 0) {
+
+        let dano = ataque();
+
+        inimigo.vida -= dano;
+
+        console.log(`${feiticeiro.nome} causou ${dano} de dano.`);
+
+        if (inimigo.vida < 0) {
+            inimigo.vida = 0;
+        }
+
+        console.log(`Vida da maldição: ${inimigo.vida}`);
+
+        if (inimigo.vida > 0) {
+
+            feiticeiro.vida -= inimigo.ataque;
+
+            console.log(
+                `${inimigo.nome} atacou causando ${inimigo.ataque} de dano.`
+            );
+
+            if (feiticeiro.vida < 0) {
+                feiticeiro.vida = 0;
+            }
+
+            console.log(`Vida do feiticeiro: ${feiticeiro.vida}`);
+        }
+
+        console.log("-----------------------");
+    }
+
+    if (feiticeiro.vida === 0) {
+        console.log("Missão fracassada.");
+        break;
+    }
+
+    console.log(`${inimigo.nome} foi exorcizada!`);
+    feiticeiro.energia += 30;
+
+    console.log(`Energia atual: ${feiticeiro.energia}`);
+    console.log("====================================");
+}
+
+if (feiticeiro.vida > 0) {
+    console.log("Parabéns!");
+    console.log("Todas as maldições foram derrotadas.");
+}
+
+console.log("====================================");
+console.log("RELATÓRIO FINAL");
+console.log("====================================");
+
+console.log(`Nome: ${feiticeiro.nome}`);
+console.log(`Vida: ${feiticeiro.vida}`);
+console.log(`Energia: ${feiticeiro.energia}`);
+
+const ranking = [
+    "Yuji Itadori",
+    "Megumi Fushiguro",
+    "Nobara Kugisaki",
+    "Satoru Gojo",
+    "Yuta Okkotsu"
+];
+
+console.log("\nEquipe de Feiticeiros:");
+
+ranking.forEach((nome, posicao) => {
+    console.log(`${posicao + 1}. ${nome}`);
+});
+
+console.log("\nMissão encerrada!");
+```
