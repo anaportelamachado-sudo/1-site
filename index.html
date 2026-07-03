@@ -1,115 +1,210 @@
-# Projeto JavaScript – Missão de Exorcismo
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jujutsu Kaisen - Curiosidades</title>
+    <style>
+        /* Importação da fonte cinematográfica */
+        @import url('https://googleapis.com');
 
-```javascript
-// ===============================
-// MISSÃO DE EXORCISMO
-// Projeto de Estudo JavaScript
-// ===============================
-
-const feiticeiro = {
-    nome: "Megumi Fushiguro",
-    nivel: 18,
-    energia: 250,
-    vida: 100
-};
-
-const maldicoes = [
-    { nome: "Maldição Grau 3", vida: 40, ataque: 8 },
-    { nome: "Maldição Grau 2", vida: 70, ataque: 15 },
-    { nome: "Maldição Grau 1", vida: 120, ataque: 20 },
-    { nome: "Maldição Especial", vida: 180, ataque: 30 }
-];
-
-console.log("====================================");
-console.log("MISSÃO DE EXORCISMO");
-console.log("====================================");
-
-console.log(`Feiticeiro: ${feiticeiro.nome}`);
-console.log(`Nível: ${feiticeiro.nivel}`);
-console.log(`Vida: ${feiticeiro.vida}`);
-console.log(`Energia: ${feiticeiro.energia}`);
-console.log("------------------------------------");
-
-function ataque() {
-    return Math.floor(Math.random() * 35) + 20;
-}
-
-for (let i = 0; i < maldicoes.length; i++) {
-
-    let inimigo = maldicoes[i];
-
-    console.log(`Uma ${inimigo.nome} apareceu!`);
-
-    while (inimigo.vida > 0 && feiticeiro.vida > 0) {
-
-        let dano = ataque();
-
-        inimigo.vida -= dano;
-
-        console.log(`${feiticeiro.nome} causou ${dano} de dano.`);
-
-        if (inimigo.vida < 0) {
-            inimigo.vida = 0;
+        :root {
+            --bg-principal: #0d0c12;
+            --bg-card: #14121f;
+            --roxo-energia: #a124db;
+            --roxo-brilho: #e044ff;
+            --texto-claro: #f5f5f7;
+            --texto-mutado: #9a98a6;
+            --borda-glow: rgba(161, 36, 219, 0.3);
         }
 
-        console.log(`Vida da maldição: ${inimigo.vida}`);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        if (inimigo.vida > 0) {
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-claro);
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(161, 36, 219, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(161, 36, 219, 0.05) 0%, transparent 40%);
+        }
 
-            feiticeiro.vida -= inimigo.ataque;
+        /* Cabeçalho Temático */
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            border-bottom: 2px solid var(--roxo-energia);
+            box-shadow: 0 10px 30px rgba(161, 36, 219, 0.1);
+            background: linear-gradient(180deg, #050407 0%, var(--bg-principal) 100%);
+        }
 
-            console.log(
-                `${inimigo.nome} atacou causando ${inimigo.ataque} de dano.`
-            );
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            letter-spacing: 4px;
+            color: #fff;
+            text-shadow: 0 0 10px var(--roxo-brilho), 0 0 20px var(--roxo-energia);
+            margin-bottom: 10px;
+        }
 
-            if (feiticeiro.vida < 0) {
-                feiticeiro.vida = 0;
+        header p {
+            color: var(--texto-mutado);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Container Principal */
+        main {
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* Grid de Curiosidades */
+        .curiosidades-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+
+        /* Cards Estilizados */
+        .card {
+            background-color: var(--bg-card);
+            border-left: 5px solid var(--roxo-energia);
+            border-radius: 4px;
+            padding: 30px;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--borda-glow);
+            border-left-color: var(--roxo-brilho);
+        }
+
+        /* Número do Card (Estilo Selo Amaldiçoado) */
+        .card-numero {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: rgba(161, 36, 219, 0.2);
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-numero {
+            color: var(--roxo-brilho);
+        }
+
+        .card h2 {
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2::before {
+            content: '💀';
+            font-size: 1.2rem;
+        }
+
+        .card p {
+            color: var(--texto-mutado);
+            font-size: 1rem;
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(161, 36, 219, 0.1);
+            margin-top: 80px;
+        }
+
+        /* Responsividade para telas maiores */
+        @media (min-width: 768px) {
+            .curiosidades-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
-
-            console.log(`Vida do feiticeiro: ${feiticeiro.vida}`);
+            header h1 {
+                font-size: 4rem;
+            }
         }
+    </style>
+</head>
+<body>
 
-        console.log("-----------------------");
-    }
+    <header>
+        <h1>JUJUTSU KAISEN</h1>
+        <p>Segredos do Mundo dos Feiticeiros</p>
+    </header>
 
-    if (feiticeiro.vida === 0) {
-        console.log("Missão fracassada.");
-        break;
-    }
+    <main>
+        <div class="curiosidades-grid">
 
-    console.log(`${inimigo.nome} foi exorcizada!`);
-    feiticeiro.energia += 30;
+            <!-- Curiosidade 1 -->
+            <div class="card">
+                <div class="card-numero">01</div>
+                <h2>Inspiração Mitológica</h2>
+                <p>Ryomen Sukuna não é uma invenção total do autor. Ele é baseado em uma figura real do folclore japonês e em registros históricos do período antigo do Japão, onde era descrito como um demônio de duas faces e quatro braços.</p>
+            </div>
 
-    console.log(`Energia atual: ${feiticeiro.energia}`);
-    console.log("====================================");
-}
+            <!-- Curiosidade 2 -->
+            <div class="card">
+                <div class="card-numero">02</div>
+                <h2>O Vício de Satoru Gojo</h2>
+                <p>Gojo começou a comer doces para estimular seu cérebro devido ao uso constante dos Seis Olhos (Rikugan). Porém, ele acabou pegando tanto gosto por açúcar que se tornou um verdadeiro viciado em doces.</p>
+            </div>
 
-if (feiticeiro.vida > 0) {
-    console.log("Parabéns!");
-    console.log("Todas as maldições foram derrotadas.");
-}
+            <!-- Curiosidade 3 -->
+            <div class="card">
+                <div class="card-numero">03</div>
+                <h2>Gege Akutami Oculto</h2>
+                <p>O criador da obra, Gege Akutami, usa um avatar de um gato caolho verde para se representar. Ele mantém sua identidade real e seu rosto em completo segredo do público até hoje.</p>
+            </div>
 
-console.log("====================================");
-console.log("RELATÓRIO FINAL");
-console.log("====================================");
+            <!-- Curiosidade 4 -->
+            <div class="card">
+                <div class="card-numero">04</div>
+                <h2>A Cicatriz de Todo</h2>
+                <p>A icônica cicatriz no rosto de Aoi Todo foi causada pelo seu rigoroso treinamento com sua mentora, Yuki Tsukumo, uma das poucas feiticeiras de Grau Especial.</p>
+            </div>
 
-console.log(`Nome: ${feiticeiro.nome}`);
-console.log(`Vida: ${feiticeiro.vida}`);
-console.log(`Energia: ${feiticeiro.energia}`);
+            <!-- Curiosidade 5 -->
+            <div class="card">
+                <div class="card-numero">05</div>
+                <h2>Origem do Nome</h2>
+                <p>"Jujutsu Kaisen" pode ser traduzido livremente como "Batalha de Feitiçaria". A palavra "Jujutsu" refere-se às artes místicas ou feitiçaria, enquanto "Kaisen" remete a um ciclo contínuo de combates.</p>
+            </div>
 
-const ranking = [
-    "Yuji Itadori",
-    "Megumi Fushiguro",
-    "Nobara Kugisaki",
-    "Satoru Gojo",
-    "Yuta Okkotsu"
-];
+            <!-- Curiosidade 6 -->
+            <div class="card">
+                <div class="card-numero">06</div>
+                <h2>Filmes Favoritos</h2>
+                <p>No treinamento de Yuji Itadori para controlar sua energia amaldiçoada assistindo a filmes, a maioria dos títulos que aparecem ao fundo são paródias de filmes reais de Hollywood, como "O Lançador de Teias" (Homem-Aranha).</p>
+            </div>
 
-console.log("\nEquipe de Feiticeiros:");
+        </div>
+    </main>
 
-ranking.forEach((nome, posicao) => {
-    console.log(`${posicao + 1}. ${nome}`);
-});
+    <footer>
+        <p>Desenvolvido para fãs de Jujutsu Kaisen • Que a energia amaldiçoada esteja com você.</p>
+    </footer>
 
-console.log("\nMissão encerrada!");
-```
+</body>
+</html>
